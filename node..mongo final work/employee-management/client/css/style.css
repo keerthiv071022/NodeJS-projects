@@ -1,0 +1,111 @@
+* {
+    box-sizing: border-box;
+}
+
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f4f4f4;
+    margin: 0;
+    padding: 20px;
+}
+
+h1 {
+    text-align: center;
+    margin-bottom: 30px;
+}
+
+.container {
+    background: white;
+    padding: 25px;
+    margin: 20px auto;
+    max-width: 1200px;
+    border-radius: 10px;
+}
+
+.dashboard {
+    display: flex;
+    gap: 20px;
+    justify-content: center;
+    flex-wrap: wrap;
+}
+
+.card {
+    background: white;
+    padding: 20px;
+    width: 220px;
+    text-align: center;
+    border-radius: 10px;
+    box-shadow: 0 2px 8px #ccc;
+}
+
+.card p {
+    font-size: 30px;
+    font-weight: bold;
+}
+
+.filters {
+    display: flex;
+    gap: 10px;
+    margin-bottom: 20px;
+    flex-wrap: wrap;
+}
+
+input,
+select {
+    padding: 10px;
+    margin: 5px 0 15px;
+    width: 100%;
+}
+
+.filters input,
+.filters select {
+    width: auto;
+    margin: 0;
+}
+
+button {
+    padding: 10px 15px;
+    border: none;
+    cursor: pointer;
+    border-radius: 5px;
+    margin: 3px;
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+th,
+td {
+    border: 1px solid #ddd;
+    padding: 10px;
+    text-align: left;
+}
+
+th {
+    background: #eee;
+}
+
+form {
+    max-width: 600px;
+    margin: auto;
+}
+
+label {
+    display: block;
+    font-weight: bold;
+    margin-top: 10px;
+}
+
+@media (max-width: 768px) {
+
+    table {
+        font-size: 12px;
+    }
+
+    .container {
+        overflow-x: auto;
+    }
+
+}

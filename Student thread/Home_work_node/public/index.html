@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport"
+        content="width=device-width, initial-scale=1.0">
+
+    <title>Product Management</title>
+
+    <link rel="stylesheet" href="style.css">
+
+</head>
+
+<body>
+
+    <div class="container">
+
+        <h1>Product Management</h1>
+
+
+        <!-- SEARCH -->
+
+        <div class="search-box">
+
+            <input
+                type="text"
+                id="search"
+                placeholder="Search product name">
+
+            <button onclick="searchProduct()">
+                Search
+            </button>
+
+            <button onclick="getProducts()">
+                Show All
+            </button>
+
+        </div>
+
+
+        <!-- PRODUCT TABLE -->
+
+        <table>
+
+            <thead>
+
+                <tr>
+
+                    <th>Name</th>
+
+                    <th>Price</th>
+
+                    <th>Quantity</th>
+
+                    <th>Actions</th>
+
+                </tr>
+
+            </thead>
+
+            <tbody id="productList">
+
+            </tbody>
+
+        </table>
+
+
+        <br>
+
+
+        <!-- ADD PRODUCT BUTTON -->
+
+        <button onclick="showAddForm()">
+            Add Product
+        </button>
+
+
+        <!-- FORM -->
+
+        <div id="formSection" class="form-section">
+
+            <h2 id="formTitle">
+                Add Product
+            </h2>
+
+
+            <input
+                type="text"
+                id="name"
+                placeholder="Product Name">
+
+
+            <textarea
+                id="description"
+                placeholder="Description">
+            </textarea>
+
+
+            <input
+                type="number"
+                id="price"
+                placeholder="Price">
+
+
+            <input
+                type="number"
+                id="quantity"
+                placeholder="Quantity">
+
+
+            <button onclick="saveProduct()">
+                Save
+            </button>
+
+            <button onclick="cancelForm()">
+                Cancel
+            </button>
+
+        </div>
+
+
+        <!-- SINGLE PRODUCT -->
+
+        <div
+            id="productDetails"
+            class="product-details">
+
+        </div>
+
+    </div>
+
+
+    <script src="script.js"></script>
+
+</body>
+
+</html>

@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="db.css">
+</head>
+
+
+<body>
+    <h1>Student Management</h1>
+    <input type="text" id="name" placeholder="name">
+    <input type="email" id="email" placeholder="email">
+    <input type="text" id="course" placeholder="course">
+    <button onclick="saveStudent()">Add Student</button>
+    <button onclick="clearForm()">Cancel</button>
+    <input type="text" id="search" placeholder="Search Student..." >
+    <button onclick="searchStudent()">Search</button>
+    <table>
+        <thead>
+            <tr>
+                <th>Name</th>
+                <th>Email</th>
+                <th>Course</th>
+            </tr>
+        </thead>
+
+        <tbody id="list">
+
+        </tbody>
+
+    </table>
+    <script>
+        let editID=null;
+        async function getstudents() {
+            const response = await fetch("/students")
+            const data = await response.json()
+            let list = document.getElementById("list")
+            list.innerHTML = ""
+            data.forEach(student => {
+                list.innerHTML += `
+                
+                <tr>
+                 <td>${student.name}</td>   
+                    <td>${student.email}</td>   
+                    <td>${student.course}</td>   
+                    <td>
+                        <button onclick="editStudent('${student._id}',
+                                '${student.name}',
+                                '${student.email}',
+                                '${student.course}'
+                        )
+                    ">
+                            Edit</button>
+
+
+                         <button onclick="viewStudent(
+    '${student.name}',
+    '${student.email}',
+    '${student.course}'
+)">View</button>
+
+
+                    <button onclick="
+                            deleteStudent(
+                        '${student._id}'
+                            )
+                    "> Delete
+                    </button>
+                    
+                </td>
+                
+                    </tr>
+
+
+                    `
+            });
+        }
+      
+        
+
+        async function saveStudent() {
+            let name = document.getElementById("name").value;
+            let email = document.getElementById("email").value;
+            let course = document.getElementById("course").value;
+
+            if (!name || !email || !course) {
+                alert("Fill all fields")
+                return
+            }
+            let student = {
+                name,
+                email,
+                course
+            }
+        
+        
+            let url = "/students";
+            let method = "POST";
+        
+        
+           
+
+
+
+        
+        //UPDATE
+        if (editID) {
+            console.log("updating");
+            
+            url = "/students/" + editID;
+            method = "PUT";
+            console.log(url,method,"xyz");
+            
+        }
+
+
+        const response = await fetch(url, {
+            method,
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify(student)
+        })
+
+        const result = await response.json()
+        alert(result.message)
+        // clearForm()
+        getstudents()
+    }
+    function editStudent(
+            id,name,email,course
+        ){
+            console.log("Editing");
+            
+            editID=id;
+            document.getElementById('name').value=name;
+            document.getElementById('email').value=email;
+            document.getElementById('course').value=course;
+        }
+//View student function
+function viewStudent(name,email,course){
+    alert(
+        "Student  Details\n\n" +
+        "Name: " + name + "\n" +
+        "Email: " + email + "\n" +
+        "Course: " + course
+    );
+}
+function searchStudent() {
+    let search = document.getElementById("search").value.toLowerCase();
+
+    let rows = document.querySelectorAll("#list tr");
+
+    rows.forEach(row => {
+        let text = row.innerText.toLowerCase();
+
+        if (text.includes(search)) {
+            row.style.display = "";
+        } else {
+            row.style.display = "none";
+        }
+    });
+}
+    
+
+         //DELETE
+           async function deleteStudent(id) {
+            if(!confirm("Delete this Student?")){
+                return;
+            }
+            const response=await fetch("/students/"+id,{
+                method:"DELETE"
+            })
+            const result=await response.json()
+            alert(result.message);
+            getstudents()
+        }
+ getstudents()
+        
+    </script>
+</body>
+
+</html>
